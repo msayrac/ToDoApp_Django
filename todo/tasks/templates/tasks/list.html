@@ -3,15 +3,20 @@
 
 <form action="/" method="POST">
     {% csrf_token %}
-
     {{form.title}}
     <input type="submit" name="Create Task">
 </form>
 
-
 {% for task in tasks %}
     <div>
         <a href="{% url 'update_task' task.id %}">Update</a>
-        <p>{{task}}</p>
+        <a href="{% url 'delete' task.id %}">Delete</a>
+    
+        {% if task.complete == True %}
+            <strike>{{task}}</strike>
+        {% else %}
+            <span>{{task}}</span>
+        {% endif %}
     </div>
 {% endfor %}
+
